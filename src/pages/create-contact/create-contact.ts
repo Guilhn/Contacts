@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { ContactsProvider } from '../../providers/contacts/contacts';
 
 /**
@@ -17,7 +17,7 @@ import { ContactsProvider } from '../../providers/contacts/contacts';
 export class CreateContactPage {
 
   model: Contact;
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private toast: ToastController, public contactsProvider: ContactsProvider) {
     this.model = new Contact();
     this.model.name = 'Novo contato';
     this.model.gender = 'male';
@@ -25,7 +25,16 @@ export class CreateContactPage {
   }
 
   createContact(){
-    console.log("form");
+    var data = {};
+    this.contactsProvider.addContact(data)
+    .then((result: any) => {
+      this.toast.create({ message: 'Contato criado'}).present();
+    })
+   .catch((error: any) => {
+     this.toast.create({ message: 'Falha ao criar o contato: ' + JSON.stringify(error.error) }).present();
+     console.log(error);
+   });
+
   }
 
   ionViewDidLoad() {
