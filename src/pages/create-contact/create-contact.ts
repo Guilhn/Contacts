@@ -25,7 +25,12 @@ export class CreateContactPage {
   }
 
   createContact(){
-    var data = {};
+    var data = {
+      'contact': {
+        'name': this.model.name,
+        'gender': this.model.gender
+      }
+    };
     this.contactsProvider.addContact(data)
     .then((result: any) => {
       this.toast.create({ message: 'Contato criado'}).present();

@@ -39,7 +39,12 @@ var CreateContactPage = /** @class */ (function () {
     }
     CreateContactPage.prototype.createContact = function () {
         var _this = this;
-        var data = {};
+        var data = {
+            'contact': {
+                'name': this.model.name,
+                'gender': this.model.gender
+            }
+        };
         this.contactsProvider.addContact(data)
             .then(function (result) {
             _this.toast.create({ message: 'Contato criado' }).present();
