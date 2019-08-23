@@ -27,17 +27,6 @@ export class ContactsProvider {
 
   }
 
-  addContact(data){
-    return new Promise((resolve, reject) => {
-      this.http.post(this.apiUrl + '/contacts.json', data)
-        .subscribe(res => {
-            resolve(res);
-          }, (err) => {
-            reject(err);
-          });
-        });
-  }
-
   addContact(data) {
     return new Promise((resolve, reject) => {
       this.http.post(this.apiUrl + '/contacts.json', data)
