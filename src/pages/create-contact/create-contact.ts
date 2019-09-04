@@ -59,4 +59,7 @@ export class CreateContactPage {
 export class Contact {
   name: string;
   gender: string;
+  birthday: string;
+  employed: boolean;
+  salary: string;
 }
