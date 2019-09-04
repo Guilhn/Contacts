@@ -11,10 +11,17 @@
 </ion-header>
 
 <ion-content padding>
+
   <div *ngIf="contact" text-center>
     <ion-item>
-      <h2>{{contact.name}}</h2>
-      <p>{{contact.gender}}</p>
+      <h1 class="center">{{contact.name}}</h1>
+      <hr>
+      <div class="detalhes">
+        <p><b>Sexo:</b> {{contact.gender}}</p>
+        <p><b>Data de nascimento:</b> {{contact.birthday}}</p>
+        <p><b>Trabalando:</b> {{contact.employed}}</p>
+        <p><b>Salário:</b> {{contact.salary}}</p>
+      </div>
     </ion-item>
   </div>
 </ion-content>

@@ -25,4 +25,6 @@ export class ContactDetailsPage {
     console.log('ionViewDidLoad ContactDetailsPage');
   }
 
+  
+
 }
