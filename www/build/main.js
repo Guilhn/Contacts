@@ -1,4 +1,4 @@
-webpackJsonp([2],{
+webpackJsonp([3],{
 
 /***/ 100:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -27,10 +27,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
  * Ionic pages and navigation.
  */
 var ContactsListPage = /** @class */ (function () {
-    function ContactsListPage(navCtrl, navParams, contactsProvider) {
+    function ContactsListPage(navCtrl, navParams, contactsProvider, toast) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
         this.contactsProvider = contactsProvider;
+        this.toast = toast;
         this.getContacts();
     }
     ContactsListPage.prototype.getContacts = function () {
@@ -41,14 +42,26 @@ var ContactsListPage = /** @class */ (function () {
             console.log(_this.contacts);
         });
     };
+    ContactsListPage.prototype.openContact = function (id) {
+        var _this = this;
+        this.contactsProvider.getContact(id)
+            .then(function (result) {
+            _this.navCtrl.push('ContactDetailsPage', {
+                contact: result
+            });
+        })
+            .catch(function (error) {
+            _this.toast.create({ message: error.error }).present();
+        });
+    };
     ContactsListPage.prototype.ionViewDidLoad = function () {
         console.log('ionViewDidLoad ContactsListPage');
     };
     ContactsListPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-contacts-list',template:/*ion-inline-start:"/var/www/Contacts/src/pages/contacts-list/contacts-list.html"*/'<!--\n  Generated template for the ContactsListPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n  <ion-navbar>\n    <ion-title>ContactsList</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <ion-list inset>\n    <ion-item *ngFor="let contact of contacts">\n      <h2>{{contact.name}}</h2>\n      <p>{{contact.gender}}</p>\n    </ion-item>\n  </ion-list>\n</ion-content>\n'/*ion-inline-end:"/var/www/Contacts/src/pages/contacts-list/contacts-list.html"*/,
+            selector: 'page-contacts-list',template:/*ion-inline-start:"/var/www/Contacts/src/pages/contacts-list/contacts-list.html"*/'<!--\n  Generated template for the ContactsListPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n  <ion-navbar>\n    <ion-title>ContactsList</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <ion-list inset>\n    <ion-item *ngFor="let contact of contacts" (click)="openContact(contact.id)">\n      <h2>{{contact.name}}</h2>\n      <p>{{contact.gender}}</p>\n    </ion-item>\n  </ion-list>\n</ion-content>\n'/*ion-inline-end:"/var/www/Contacts/src/pages/contacts-list/contacts-list.html"*/,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2__providers_contacts_contacts__["a" /* ContactsProvider */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2__providers_contacts_contacts__["a" /* ContactsProvider */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* ToastController */]])
     ], ContactsListPage);
     return ContactsListPage;
 }());
@@ -160,13 +173,17 @@ webpackEmptyAsyncContext.id = 113;
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
-	"../pages/contacts-list/contacts-list.module": [
+	"../pages/contact-details/contact-details.module": [
 		281,
-		1
+		0
+	],
+	"../pages/contacts-list/contacts-list.module": [
+		282,
+		2
 	],
 	"../pages/create-contact/create-contact.module": [
-		282,
-		0
+		283,
+		1
 	]
 };
 function webpackAsyncContext(req) {
@@ -411,6 +428,7 @@ var AppModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_11__angular_common_http__["b" /* HttpClientModule */],
                 __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["c" /* IonicModule */].forRoot(__WEBPACK_IMPORTED_MODULE_3__app_component__["a" /* MyApp */], {}, {
                     links: [
+                        { loadChildren: '../pages/contact-details/contact-details.module#ContactDetailsPageModule', name: 'ContactDetailsPage', segment: 'contact-details', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/contacts-list/contacts-list.module#ContactsListPageModule', name: 'ContactsListPage', segment: 'contacts-list', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/create-contact/create-contact.module#CreateContactPageModule', name: 'CreateContactPage', segment: 'create-contact', priority: 'low', defaultHistory: [] }
                     ]
@@ -524,6 +542,17 @@ var ContactsProvider = /** @class */ (function () {
                 resolve(data);
             }, function (err) {
                 console.log(err);
+            });
+        });
+    };
+    ContactsProvider.prototype.getContact = function (id) {
+        var _this = this;
+        return new Promise(function (resolve, reject) {
+            _this.http.get(_this.apiUrl + '/contacts/' + id + '.json')
+                .subscribe(function (res) {
+                resolve(res);
+            }, function (err) {
+                reject(err);
             });
         });
     };
