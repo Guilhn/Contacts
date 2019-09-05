@@ -54,9 +54,6 @@ var ContactsListPage = /** @class */ (function () {
             _this.toast.create({ message: error.error }).present();
         });
     };
-    ContactsListPage.prototype.ionViewDidLoad = function () {
-        console.log('ionViewDidLoad ContactsListPage');
-    };
     ContactsListPage.prototype.doRefresh = function (refresher) {
         console.log('Begin async operation', refresher);
         this.getContacts();
@@ -86,6 +83,9 @@ var ContactsListPage = /** @class */ (function () {
             .catch(function (error) {
             _this.toast.create({ message: error.error }).present();
         });
+    };
+    ContactsListPage.prototype.ionViewDidLoad = function () {
+        console.log('ionViewDidLoad ContactsListPage');
     };
     ContactsListPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
@@ -204,19 +204,19 @@ webpackEmptyAsyncContext.id = 113;
 
 var map = {
 	"../pages/contact-details/contact-details.module": [
-		281,
+		284,
 		1
 	],
 	"../pages/contact-edit/contact-edit.module": [
-		282,
+		281,
 		0
 	],
 	"../pages/contacts-list/contacts-list.module": [
-		283,
+		282,
 		3
 	],
 	"../pages/create-contact/create-contact.module": [
-		284,
+		283,
 		2
 	]
 };
@@ -462,10 +462,10 @@ var AppModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_11__angular_common_http__["b" /* HttpClientModule */],
                 __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["c" /* IonicModule */].forRoot(__WEBPACK_IMPORTED_MODULE_3__app_component__["a" /* MyApp */], {}, {
                     links: [
-                        { loadChildren: '../pages/contact-details/contact-details.module#ContactDetailsPageModule', name: 'ContactDetailsPage', segment: 'contact-details', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/contact-edit/contact-edit.module#ContactEditPageModule', name: 'ContactEditPage', segment: 'contact-edit', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/contacts-list/contacts-list.module#ContactsListPageModule', name: 'ContactsListPage', segment: 'contacts-list', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/create-contact/create-contact.module#CreateContactPageModule', name: 'CreateContactPage', segment: 'create-contact', priority: 'low', defaultHistory: [] }
+                        { loadChildren: '../pages/create-contact/create-contact.module#CreateContactPageModule', name: 'CreateContactPage', segment: 'create-contact', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/contact-details/contact-details.module#ContactDetailsPageModule', name: 'ContactDetailsPage', segment: 'contact-details', priority: 'low', defaultHistory: [] }
                     ]
                 })
             ],

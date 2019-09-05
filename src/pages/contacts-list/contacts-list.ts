@@ -41,10 +41,6 @@ export class ContactsListPage {
     });
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ContactsListPage');
-  }
-
   doRefresh(refresher) {
     console.log('Begin async operation', refresher);
     this.getContacts();
@@ -63,6 +59,8 @@ export class ContactsListPage {
     .catch((error: any) => {
       this.toast.create({ message: error.error }).present();
     });
+
+
   }
 
   openEditContact(id: number) {
@@ -75,6 +73,10 @@ export class ContactsListPage {
     .catch((error: any) => {
       this.toast.create({ message: error.error }).present();
     });
+  }
+
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad ContactsListPage');
   }
 
 
