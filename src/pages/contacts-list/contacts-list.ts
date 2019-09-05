@@ -56,6 +56,7 @@ export class ContactsListPage {
 
   deleteContact(contact: any) {
     this.contactsProvider.destroyContact(contact.id)
+
     .then((result: any) => {
       this.toast.create({ message: 'Excluído!', duration: 3000 }).present();
     })
@@ -63,5 +64,18 @@ export class ContactsListPage {
       this.toast.create({ message: error.error }).present();
     });
   }
+
+  openEditContact(id: number) {
+    this.contactsProvider.getContact(id)
+    .then((result: any) => {
+      this.navCtrl.push('ContactEditPage',  {
+        contact: result
+      });
+    })
+    .catch((error: any) => {
+      this.toast.create({ message: error.error }).present();
+    });
+  }
+
 
 }

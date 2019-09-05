@@ -1,14 +1,14 @@
 webpackJsonp([0],{
 
-/***/ 281:
+/***/ 282:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ContactDetailsPageModule", function() { return ContactDetailsPageModule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ContactEditPageModule", function() { return ContactEditPageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(26);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__contact_details__ = __webpack_require__(284);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__contact_edit__ = __webpack_require__(286);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -18,33 +18,35 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
-var ContactDetailsPageModule = /** @class */ (function () {
-    function ContactDetailsPageModule() {
+var ContactEditPageModule = /** @class */ (function () {
+    function ContactEditPageModule() {
     }
-    ContactDetailsPageModule = __decorate([
+    ContactEditPageModule = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["I" /* NgModule */])({
             declarations: [
-                __WEBPACK_IMPORTED_MODULE_2__contact_details__["a" /* ContactDetailsPage */],
+                __WEBPACK_IMPORTED_MODULE_2__contact_edit__["a" /* ContactEditPage */],
             ],
             imports: [
-                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__contact_details__["a" /* ContactDetailsPage */]),
+                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__contact_edit__["a" /* ContactEditPage */]),
             ],
         })
-    ], ContactDetailsPageModule);
-    return ContactDetailsPageModule;
+    ], ContactEditPageModule);
+    return ContactEditPageModule;
 }());
 
-//# sourceMappingURL=contact-details.module.js.map
+//# sourceMappingURL=contact-edit.module.js.map
 
 /***/ }),
 
-/***/ 284:
+/***/ 286:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ContactDetailsPage; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ContactEditPage; });
+/* unused harmony export Contact */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_contacts_contacts__ = __webpack_require__(50);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -56,31 +58,56 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 
 
+
 /**
- * Generated class for the ContactDetailsPage page.
+ * Generated class for the ContactEditPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
-var ContactDetailsPage = /** @class */ (function () {
-    function ContactDetailsPage(navCtrl, navParams) {
+var ContactEditPage = /** @class */ (function () {
+    function ContactEditPage(navCtrl, navParams, toast, contactProvider) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
-        this.contact = this.navParams.data.contact;
+        this.toast = toast;
+        this.contactProvider = contactProvider;
+        if (this.navParams.data.contact) {
+            this.model = this.navParams.data.contact;
+        }
+        else {
+            this.model = new Contact();
+        }
     }
-    ContactDetailsPage.prototype.ionViewDidLoad = function () {
-        console.log('ionViewDidLoad ContactDetailsPage');
+    ContactEditPage.prototype.saveContact = function () {
+        var _this = this;
+        this.contactProvider.updateContact(this.model.id, this.model)
+            .then(function (result) {
+            _this.toast.create({ message: 'Usuário salvo' }).present();
+            _this.navCtrl.pop();
+        })
+            .catch(function (error) {
+            _this.toast.create({ message: error.error }).present();
+        });
     };
-    ContactDetailsPage = __decorate([
+    ContactEditPage.prototype.ionViewDidLoad = function () {
+        console.log('ionViewDidLoad ContactEditPage');
+    };
+    ContactEditPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-contact-details',template:/*ion-inline-start:"/var/www/Contacts/src/pages/contact-details/contact-details.html"*/'<!--\n  Generated template for the ContactDetailsPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n  <ion-navbar>\n    <ion-title>contact-details</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n\n  <div *ngIf="contact" text-center>\n    <ion-item>\n      <h1 class="center">{{contact.name}}</h1>\n      <hr>\n      <div class="detalhes">\n        <p><b>Sexo:</b> {{contact.gender}}</p>\n        <p><b>Data de nascimento:</b> {{contact.birthday}}</p>\n        <p><b>Trabalando:</b> {{contact.employed}}</p>\n        <p><b>Salário:</b> {{contact.salary}}</p>\n      </div>\n    </ion-item>\n  </div>\n</ion-content>\n'/*ion-inline-end:"/var/www/Contacts/src/pages/contact-details/contact-details.html"*/,
+            selector: 'page-contact-edit',template:/*ion-inline-start:"/var/www/Contacts/src/pages/contact-edit/contact-edit.html"*/'<!--\n  Generated template for the ContactEditPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n  <ion-navbar>\n    <ion-title>contact-edit</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <ion-list>\n    <ion-item>\n      <ion-label stacked>Nome</ion-label>\n      <ion-input type="text" name="name" [(ngModel)]="model.name"></ion-input>\n    </ion-item>\n  </ion-list>\n    <button ion-button block (click)="saveContact()" color="primary">Salvar</button>\n</ion-content>\n'/*ion-inline-end:"/var/www/Contacts/src/pages/contact-edit/contact-edit.html"*/,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavParams */]])
-    ], ContactDetailsPage);
-    return ContactDetailsPage;
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavParams */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* ToastController */], __WEBPACK_IMPORTED_MODULE_2__providers_contacts_contacts__["a" /* ContactsProvider */]])
+    ], ContactEditPage);
+    return ContactEditPage;
 }());
 
-//# sourceMappingURL=contact-details.js.map
+var Contact = /** @class */ (function () {
+    function Contact() {
+    }
+    return Contact;
+}());
+
+//# sourceMappingURL=contact-edit.js.map
 
 /***/ })
 
