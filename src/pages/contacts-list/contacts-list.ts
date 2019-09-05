@@ -47,7 +47,7 @@ export class ContactsListPage {
 
   doRefresh(refresher) {
     console.log('Begin async operation', refresher);
-
+    this.getContacts();
     setTimeout(() => {
       console.log('Async operation has ended');
       refresher.complete();
