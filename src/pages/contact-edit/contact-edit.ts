@@ -27,15 +27,16 @@ export class ContactEditPage {
   }
 
   saveContact() {
-    this.contactProvider.updateContact(this.model.id, this.model)
+    this.contactsProvider.updateContact(this.model.id, this.model)
     .then((result: any) => {
-      this.toast.create({ message: 'Usuário salvo' }).present();
+      this.toast.create({ message: 'Usuário salvo', duration: 3000 }).present();
         this.navCtrl.pop();
       })
     .catch((error: any) => {
-      this.toast.create({ message: error.error }).present();
+      this.toast.create({ message: error.error, duration: 3000 }).present();
     });
   }
+}
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ContactEditPage');
