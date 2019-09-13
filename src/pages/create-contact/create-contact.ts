@@ -41,10 +41,10 @@ export class CreateContactPage {
     };
     this.contactsProvider.addContact(data)
     .then((result: any) => {
-      this.toast.create({ message: 'Contato criado'}).present();
+      this.toast.create({ message: 'Contato criado', duration: 3000}).present();
     })
    .catch((error: any) => {
-     this.toast.create({ message: 'Falha ao criar o contato: ' + JSON.stringify(error.error) }).present();
+     this.toast.create({ message: 'Falha ao criar o contato: ' + error.error , duration: 3000}).present();
      console.log(error);
    });
 
